@@ -18,9 +18,9 @@
         insert into user (
         <trim suffixOverrides=",">
             <if test="name != null and name != ''">user_name,</if>
-            <if test="password != null and password != ''">password,</if>
-            <if test="createTime != null">password,</if>
-            <if test="updateTime != null">password,</if>
+            <if test="password != null and password != ''">user_password,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
         </trim>)
         values (
         <trim suffixOverrides=",">
