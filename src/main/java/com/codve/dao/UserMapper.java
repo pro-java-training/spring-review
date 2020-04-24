@@ -1,6 +1,8 @@
 package com.codve.dao;
 
 import com.codve.model.User;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
