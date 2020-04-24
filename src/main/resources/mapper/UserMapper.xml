@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codve.dao.UserMapper">
+    <resultMap id="userMapper" type="com.codve.model.User">
+        <id column="user_id" property="id" jdbcType="BIGINT" javaType="Long"/>
+        <result column="user_name" property="name" jdbcType="VARCHAR" javaType="String"/>
+        <result column="user_password" property="password" jdbcType="VARCHAR" javaType="String"/>
+        <result column="create_time" property="createTime" jdbcType="BIGINT" javaType="Long"/>
+        <result column="update_time" property="updateTime" jdbcType="BIGINT" javaType="Long"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.codve.model.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user (
+        <trim suffixOverrides=",">
+            <if test="name != null and name != ''">user_name,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="createTime != null">password,</if>
+            <if test="updateTime != null">password,</if>
+        </trim>)
+        values (
+        <trim suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>)
+    </insert>
+</mapper>
