@@ -5,9 +5,7 @@ import com.codve.model.User;
 import com.codve.service.UserService;
 import com.codve.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -23,9 +21,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/id")
-    public CommonResult<User> findById() {
-        Optional<User> userOptional = userService.findById(10L);
+    @GetMapping("/find/{id}")
+    public CommonResult<User> findById(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        return userOptional.map(CommonResult::success).orElseGet(() -> CommonResult.errorNull(EX.E_1104));
+    }
+
+    @GetMapping("/find")
+    public CommonResult<User> findByIdRequestParam(@RequestParam(name = "id") Long id) {
+        Optional<User> userOptional = userService.findById(id);
         return userOptional.map(CommonResult::success).orElseGet(() -> CommonResult.errorNull(EX.E_1104));
     }
 
