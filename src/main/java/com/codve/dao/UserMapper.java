@@ -8,11 +8,11 @@ public interface UserMapper {
 
     int save(User user);
 
-//    int update(User user);
-//
-//    User findById(Long id);
-//
-//    List<User> find(User user);
-//
-//    int deleteById(Long id);
+    int update(User user);
+
+    User findById(Long id);
+
+    List<User> find(User user);
+
+    int deleteById(Long id);
 }
