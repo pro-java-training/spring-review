@@ -67,8 +67,13 @@ class UserServiceImplIntegrate {
     }
 
     @Test
-    void findById() {
+    void find() {
         List<User> users = userService.find(User.builder().name("A").build());
         assertEquals(1, users.size());
+    }
+
+    @Test
+    void deleteById() {
+        assertEquals(1, userService.deleteById(1L));
     }
 }

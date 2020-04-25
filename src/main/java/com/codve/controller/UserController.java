@@ -21,14 +21,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/find/{id}")
-    public CommonResult<User> findById(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        return userOptional.map(CommonResult::success).orElseGet(() -> CommonResult.errorNull(EX.E_1104));
-    }
-
     @GetMapping("/find")
     public CommonResult<User> findByIdRequestParam(@RequestParam(name = "id") Long id) {
+        return findById(id);
+    }
+
+    @GetMapping("/find/{id}")
+    public CommonResult<User> findByIdPathParam(@PathVariable Long id) {
+        return findById(id);
+    }
+
+    private CommonResult<User> findById(Long id) {
         Optional<User> userOptional = userService.findById(id);
         return userOptional.map(CommonResult::success).orElseGet(() -> CommonResult.errorNull(EX.E_1104));
     }
