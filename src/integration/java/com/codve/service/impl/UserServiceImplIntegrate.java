@@ -47,7 +47,7 @@ class UserServiceImplIntegrate {
     }
 
     @Test
-    void add() {
+    void save() {
         User user = User.builder()
                 .name("Jimmy")
                 .password("123456")

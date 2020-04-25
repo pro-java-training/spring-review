@@ -48,4 +48,17 @@ public class UserController {
         int rs = userService.save(user);
         return rs == 1 ? CommonResult.success() : CommonResult.error(EX.E_1101);
     }
+
+    @PostMapping("/update")
+    public CommonResult update(@RequestBody @Valid User user) {
+        user.setUpdateTime(Instant.now().getEpochSecond());
+        int rs = userService.update(user);
+        return rs == 1 ? CommonResult.success() : CommonResult.error(EX.E_1103);
+    }
+
+    @GetMapping("/delete/{id}")
+    public CommonResult delete(@PathVariable @Valid @Min(value = 1) Long id) {
+        int rs = userService.deleteById(id);
+        return rs == 1 ? CommonResult.success() : CommonResult.error(EX.E_1102);
+    }
 }

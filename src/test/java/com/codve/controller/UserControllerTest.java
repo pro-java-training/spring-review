@@ -13,8 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -81,4 +80,31 @@ class UserControllerTest {
         assertEquals(EX.E_1101.getCode(), result.getCode());
     }
 
+    @Test
+    void updateSuccess() {
+        when(userService.update(any(User.class))).thenReturn(1);
+        CommonResult result = userController.update(new User());
+        assertEquals(EX.E_0.getCode(), result.getCode());
+    }
+
+    @Test
+    void updateFailed() {
+        when(userService.update(any(User.class))).thenReturn(0);
+        CommonResult result = userController.update(new User());
+        assertEquals(EX.E_1103.getCode(), result.getCode());
+    }
+
+    @Test
+    void deleteSuccess() {
+        when(userService.deleteById(anyLong())).thenReturn(1);
+        CommonResult result = userController.delete(1L);
+        assertEquals(EX.E_0.getCode(), result.getCode());
+    }
+
+    @Test
+    void deleteFailed() {
+        when(userService.deleteById(anyLong())).thenReturn(0);
+        CommonResult result = userController.delete(1L);
+        assertEquals(EX.E_1102.getCode(), result.getCode());
+    }
 }
