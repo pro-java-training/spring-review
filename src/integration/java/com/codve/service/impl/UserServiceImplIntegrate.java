@@ -67,6 +67,11 @@ class UserServiceImplIntegrate {
     }
 
     @Test
+    void findById() {
+        assertTrue(userService.findById(1L).isPresent());
+    }
+
+    @Test
     void find() {
         List<User> users = userService.find(User.builder().name("A").build());
         assertEquals(1, users.size());

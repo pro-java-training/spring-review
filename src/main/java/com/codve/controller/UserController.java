@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -35,11 +36,6 @@ public class UserController {
         return findById(id);
     }
 
-    private CommonResult<User> findById(Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        return userOptional.map(CommonResult::success).orElseGet(() -> CommonResult.errorNull(EX.E_1104));
-    }
-
     @PostMapping("/save")
     public CommonResult save(@RequestBody @Valid User user) {
         long time = Instant.now().getEpochSecond();
@@ -60,5 +56,10 @@ public class UserController {
     public CommonResult delete(@PathVariable @Valid @Min(value = 1) Long id) {
         int rs = userService.deleteById(id);
         return rs == 1 ? CommonResult.success() : CommonResult.error(EX.E_1102);
+    }
+
+    private CommonResult<User> findById(Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        return userOptional.map(CommonResult::success).orElseGet(() -> CommonResult.errorNull(EX.E_1104));
     }
 }
