@@ -5,8 +5,11 @@ import com.codve.model.User;
 import com.codve.service.UserService;
 import com.codve.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.time.Instant;
 import java.util.Optional;
 
@@ -16,18 +19,19 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping(value = "/user")
+@Validated
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/find")
-    public CommonResult<User> findByIdRequestParam(@RequestParam(name = "id") Long id) {
+    public CommonResult<User> findByIdRequestParam(@RequestParam(name = "id") @Valid @Min(value = 1) Long id) {
         return findById(id);
     }
 
     @GetMapping("/find/{id}")
-    public CommonResult<User> findByIdPathParam(@PathVariable Long id) {
+    public CommonResult<User> findByIdPathParam(@PathVariable @Valid @Min(value = 1) Long id) {
         return findById(id);
     }
 
@@ -37,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public CommonResult save(@RequestBody User user) {
+    public CommonResult save(@RequestBody @Valid User user) {
         long time = Instant.now().getEpochSecond();
         user.setCreateTime(time);
         user.setUpdateTime(time);
