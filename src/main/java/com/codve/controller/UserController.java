@@ -36,18 +36,12 @@ public class UserController {
         return userOptional.map(CommonResult::success).orElseGet(() -> CommonResult.errorNull(EX.E_1104));
     }
 
-    @GetMapping("/save")
-    public CommonResult save() {
-        User user = User.builder()
-                .name("Sally")
-                .password("qwerty")
-                .createTime(Instant.now().getEpochSecond())
-                .updateTime(Instant.now().getEpochSecond())
-                .build();
+    @PostMapping("/save")
+    public CommonResult save(@RequestBody User user) {
+        long time = Instant.now().getEpochSecond();
+        user.setCreateTime(time);
+        user.setUpdateTime(time);
         int rs = userService.save(user);
-        if (rs == 1) {
-            return CommonResult.success();
-        }
-        return CommonResult.error(EX.E_1101);
+        return rs == 1 ? CommonResult.success() : CommonResult.error(EX.E_1101);
     }
 }
