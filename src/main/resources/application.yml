@@ -29,6 +29,12 @@ spring:
     username: root
     password: root
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.codve.model
