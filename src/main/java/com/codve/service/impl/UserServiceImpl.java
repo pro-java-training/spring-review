@@ -36,13 +36,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-//    @Cacheable(condition = "#result.isPresent() == true")
+    @Cacheable(unless = "#result == null")
     public Optional<User> findById(Long id) {
         return Optional.ofNullable(userMapper.findById(id));
     }
 
     @Override
-    @Cacheable(condition = "#result.size() != 0")
+    @Cacheable(unless = "#result.size() == 0")
     public List<User> find(User user) {
         return userMapper.find(user);
     }
